@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/mern-project/static/css/main.6fdd5116.css",
-    "main.js": "/mern-project/static/js/main.c21ee8ff.js",
-    "static/js/453.8ab44547.chunk.js": "/mern-project/static/js/453.8ab44547.chunk.js",
-    "static/media/bootstrap-icons.woff?": "/mern-project/static/media/bootstrap-icons.39795c0b4513de014cf8.woff",
-    "static/media/bootstrap-icons.woff2?": "/mern-project/static/media/bootstrap-icons.b7bcc075b395c14ce8c2.woff2",
-    "index.html": "/mern-project/index.html",
-    "main.6fdd5116.css.map": "/mern-project/static/css/main.6fdd5116.css.map",
-    "main.c21ee8ff.js.map": "/mern-project/static/js/main.c21ee8ff.js.map",
-    "453.8ab44547.chunk.js.map": "/mern-project/static/js/453.8ab44547.chunk.js.map"
+    "main.css": "/static/css/main.38d0feb7.css",
+    "main.js": "/static/js/main.7ae1166c.js",
+    "static/js/453.8ab44547.chunk.js": "/static/js/453.8ab44547.chunk.js",
+    "static/media/bootstrap-icons.woff?": "/static/media/bootstrap-icons.39795c0b4513de014cf8.woff",
+    "static/media/bootstrap-icons.woff2?": "/static/media/bootstrap-icons.b7bcc075b395c14ce8c2.woff2",
+    "index.html": "/index.html",
+    "main.38d0feb7.css.map": "/static/css/main.38d0feb7.css.map",
+    "main.7ae1166c.js.map": "/static/js/main.7ae1166c.js.map",
+    "453.8ab44547.chunk.js.map": "/static/js/453.8ab44547.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6fdd5116.css",
-    "static/js/main.c21ee8ff.js"
+    "static/css/main.38d0feb7.css",
+    "static/js/main.7ae1166c.js"
   ]
 }
