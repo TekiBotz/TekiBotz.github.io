@@ -1,9 +1,21 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';  // Used to connect to an external system
 import { Row, Col } from 'react-bootstrap';
 import AnimalCard from '../uiComponents/AnimalCard';
-import animals from '../animals';
+import axios from 'axios';
+
 
 const HomeScreen = () => {
+  const [animals, setAnimals] = useState([]);
+
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      const { data } = await axios.get('/api/animals');
+      setAnimals(data);
+    };
+    
+    fetchAnimals();
+  }, []);
+
   return (
     <>
         <div className='my-2'>

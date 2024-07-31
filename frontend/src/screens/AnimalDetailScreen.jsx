@@ -1,13 +1,23 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';   // Used to connect to an external system
 import { useParams, Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import animals from '../animals';
 import AnimalCard from '../uiComponents/AnimalCard';
+import axios from 'axios';
 
 const AnimalDetailScreen = () => {
-  const { id: animalID } = useParams();
-  const animal = animals.find((p) => p._id === animalID);
+  const [animal, setAnimal] = useState({});
+
+  const { id: animalId } = useParams();
+
+  useEffect(() => {
+    const fetchAnimal = async () => {
+      const { data } = await axios.get(`/api/animals/${animalId}`);
+      setAnimal(data);
+    };
+    
+    fetchAnimal();
+  }, [animalId]);
 
   if (!animal) {
     return (
