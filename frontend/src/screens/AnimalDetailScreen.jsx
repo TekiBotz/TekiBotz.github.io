@@ -1,50 +1,45 @@
-import { React, useState, useEffect } from 'react';   // Used to connect to an external system
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import AnimalCard from '../uiComponents/AnimalCard';
-import axios from 'axios';
+import LoadingSpinner from '../uiComponents/LoadingSpinner';
+import AlertMessage from '../uiComponents/AlertMessage';
+import { useGetAnimalDetailsQuery } from '../slices/animalsApiSlice';
 
 const AnimalDetailScreen = () => {
-  const [animal, setAnimal] = useState({});
+  const { id: animalId } = useParams();  // Extract animal ID from the URL
 
-  const { id: animalId } = useParams();
-
-  useEffect(() => {
-    const fetchAnimal = async () => {
-      const { data } = await axios.get(`/api/animals/${animalId}`);
-      setAnimal(data);
-    };
-    
-    fetchAnimal();
-  }, [animalId]);
-
-  if (!animal) {
-    return (
-      <div>
-        <Link to='/'>
-          <i className="bi bi-arrow-left-circle-fill text-dark fs-1"></i>
-        </Link>
-        <h2 className='my-3 p-5'>The pet your looking for may have already been adopted! :D</h2>
-      </div>
-    );
-  }
+  // Fetch animal details based on the animal ID
+  const { data: animal, isLoading, error } = useGetAnimalDetailsQuery(animalId);
 
   return (
     <>
+      {/* Back arrow allows users to naviate to home screen */}
       <Link to='/'>
         <i className="bi bi-arrow-left-circle-fill text-dark fs-1"></i>
       </Link>
-      <Row className="my-3">
-        <Col md={4}>
-          <AnimalCard animal={animal} />
-        </Col>
-        <Col md={4} className="d-flex justify-content-center align-items-center">
-            <div>
-                <h3 className="text-md-right">Data Driven Charts/Graph</h3>
-            </div>
-        </Col>
-      </Row>
+      {/* Conditional rendering */}
+      { isLoading ? (
+          <LoadingSpinner/>
+      ) : error ? (
+          <AlertMessage varient='danger'>
+            {error?.data?.message || error.error}
+          </AlertMessage>
+      ) : (
+        <>
+          <Row className="my-3">
+            <Col md={4}>
+              <AnimalCard animal={animal} />
+            </Col>
+            <Col md={4} className="d-flex justify-content-center align-items-center">
+                <div>
+                    <h3 className="text-md-right">Data Driven Charts/Graph</h3>
+                </div>
+            </Col>
+          </Row>
+        </>) }
+      
     </>
   );
 };

@@ -1,3 +1,4 @@
+// Calculates age from a given birth date string.
 export const calculateAge = (birthDateString) => {
     const birthDate = new Date(birthDateString);
     const currentDate = new Date();
@@ -8,11 +9,13 @@ export const calculateAge = (birthDateString) => {
     let ageYears = years;
     let ageMonths = months;
     
+    // Adjust age if the current month is before the birth month
     if (months < 0) {
       ageYears--;
-      ageMonths = 12 + months; // months will be negative here
+      ageMonths = 12 + months;
     }
     
+    // Adjust age if the current day is before the birth day
     if (currentDate.getDate() < birthDate.getDate()) {
       ageMonths--;
       if (ageMonths < 0) {

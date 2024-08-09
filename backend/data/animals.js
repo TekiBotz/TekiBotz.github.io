@@ -1,3 +1,7 @@
+/**
+ * Dummy data used before connecting to MongoDB
+ */
+
 const animals = [
   {
     _id: '1',
@@ -7,9 +11,6 @@ const animals = [
     breed: 'Chihuahua Shorthair Mix',
     animal_type: 'Dog',
     birthDate: '2013-11-18',
-    countInStock: 10,
-    rating: 4.5,
-    numReviews: 12,
   },
   {
     _id: '2',
@@ -19,9 +20,6 @@ const animals = [
     breed: 'Siamese Mix',
     animal_type: 'Cat',
     birthDate: '2016-01-25',
-    countInStock: 7,
-    rating: 4.0,
-    numReviews: 8,
   },
   {
     _id: '3',
@@ -31,9 +29,6 @@ const animals = [
     breed: 'Labrador Retriever Mix',
     animal_type: 'Dog',
     birthDate: '2012-11-06',
-    countInStock: 5,
-    rating: 3,
-    numReviews: 12,
   },
   {
     _id: '4',
@@ -43,9 +38,6 @@ const animals = [
     breed: 'Cardigan Welsh Corgi Mix',
     animal_type: 'Dog',
     birthDate: '2010-01-27',
-    countInStock: 11,
-    rating: 5,
-    numReviews: 12,
   },
   {
     _id: '5',
@@ -55,9 +47,6 @@ const animals = [
     breed: 'Pit Bull Mix',
     animal_type: 'Dog',
     birthDate: '2012-03-03',
-    countInStock: 7,
-    rating: 3.5,
-    numReviews: 10,
   },
   {
     _id: '6',
@@ -67,9 +56,6 @@ const animals = [
     breed: 'Labrador Retriever/Australian Cattle Dog',
     animal_type: 'Dog',
     birthDate: '2015-10-12',
-    countInStock: 0,
-    rating: 4,
-    numReviews: 12,
   },
 ]
 
