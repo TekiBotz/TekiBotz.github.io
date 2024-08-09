@@ -37,7 +37,6 @@ app.use('/api/users', userRoutes);  // Routes starting with /api/users are handl
 
 if (process.env.NODE_ENV === 'production') {
 	const __dirname = path.resolve();
-	// app.use('/uploads', express.static('/var/data/uploads'));
 	// Set static folder
 	app.use(express.static(path.join(__dirname, '/frontend/build')));
   
@@ -47,7 +46,6 @@ if (process.env.NODE_ENV === 'production') {
 	);
   } else {
 	const __dirname = path.resolve();
-	// app.use('/uploads', express.static('/var/data/uploads'));
 	app.get('/', (req, res) => {
 	  res.send('API is running....');
 	});
@@ -56,4 +54,5 @@ if (process.env.NODE_ENV === 'production') {
 app.use(notFound);  // Middleware for handling 404 errors
 app.use(errorHandler);  // Middleware for handling other errors
 
+// app.listen(port, () => console.log(`Server running on port ${port}`));
 app.listen(port, () => console.log(`Server running in ${process.env.NODE_ENV} mode on port ${port}`));
