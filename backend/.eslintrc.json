@@ -1,0 +1,12 @@
+{
+  "root": true, // Ensures ESLint doesn't look at parent folders for more configuration.
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "extends": ["eslint:recommended", "prettier"]
+}
