@@ -1,3 +1,11 @@
+/**
+ * Project: AnimalRescue
+ * File: generateToken.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-25
+ * Purpose: Generates a JSON Web Token (JWT) for user authentication and sets it as an HTTP-only cookie.
+ */
+
 import jwt from "jsonwebtoken";
 
 // Generates a JSON Web Token (JWT)

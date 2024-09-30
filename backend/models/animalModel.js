@@ -1,9 +1,14 @@
+/**
+ * Project: AnimalRescue
+ * File: animalModel.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-24
+ * Purpose: Mongoose schema for the animals collection, 
+ *          modeled after the AAC database.
+ */
+
 import mongoose from "mongoose";
 
-/*
-* Schema modeled after AAC database, animals collection
-* Timestamps exist as datetime field
-*/
 const animalSchema = new mongoose.Schema({
 	age_upon_outcome: {
 		type: String,

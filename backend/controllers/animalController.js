@@ -1,3 +1,13 @@
+/**
+ * Project: AnimalRescue
+ * File: animalController.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-24
+ * Purpose: Controller functions for handling animal-related API requests, 
+ * 					including fetching all animals with pagination and searching 
+ * 					by breed, as well as fetching a specific animal by its ID.
+ */
+
 import asyncHandler from '../middleware/asyncHandler.js';
 import Animal from '../models/animalModel.js';
 

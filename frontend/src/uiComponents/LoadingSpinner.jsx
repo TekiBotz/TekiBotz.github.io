@@ -1,12 +1,20 @@
-import React from 'react'
+/**
+ * Project: AnimalRescue
+ * File: LoadingSpinner.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-16
+ * Purpose: Displays a loading spinner to provide visual feedback
+ *          while the app is waiting for data to load.
+ */
+
+import React from 'react';
 import { Spinner } from "react-bootstrap";
 
-// Spinner added for visual effects when screen is loading
 const LoadingSpinner = () => {
   return (
     <Spinner
-        animation='border'
-        role='status'
+        animation='border'    // Border animation for loading spinner
+        role='status'         // Aria role for accessibility
         style={{
             width: "75px",
             height: "75px",
@@ -14,7 +22,7 @@ const LoadingSpinner = () => {
             display: "block",
         }}
     />
-  )
+  );
 }
 
-export default LoadingSpinner
+export default LoadingSpinner;

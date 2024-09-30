@@ -1,3 +1,11 @@
+/**
+ * Project: AnimalRescue
+ * File: authSlice.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-25
+ * Purpose: Manages authentication state for the application using Redux Toolkit.
+ */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 /**

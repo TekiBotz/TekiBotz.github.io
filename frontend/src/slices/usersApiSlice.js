@@ -1,10 +1,14 @@
+/**
+ * Project: AnimalRescue
+ * File: usersApiSlice.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-25
+ * Purpose: Injects user-related endpoints into the base apiSlice for managing user operations.
+ */
+
 import { USERS_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
 
-/*
-* Injects user-related endpoints into the base apiSlice.
-* Each endpoint corresponds to a specific API operation and is exported for use in React components.
-*/
 export const usersApiSlice = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
 		// Endpoint for user login

@@ -1,3 +1,11 @@
+/**
+ * Project: AnimalRescue
+ * File: RegisterScreen.jsx
+ * Author: Jarrale Butts
+ * Created: 2024-09-20
+ * Purpose: Allows users to create an account.
+ */
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
@@ -31,7 +39,7 @@ const RegisterScreen = () => {
 	const searchParams = new URLSearchParams(search);
 	const redirect = searchParams.get('redirect') || '/';
 
-	// If the user is already logged in, redirect to intended page
+	// Redirect the user if they are already logged in
 	useEffect(() => {
 		if (userInfo) {
 			navigate(redirect);
@@ -45,7 +53,7 @@ const RegisterScreen = () => {
       toast.error('Passwords don\'t match');
     } else {
       try {
-				// Call the mutation to update the profile
+				// Call the mutation to register the user
         const res = await register({ name, email, password }).unwrap();
         dispatch(setCredentials({ ...res }));  // // Update store.js with credentials
         navigate(redirect);
@@ -59,7 +67,9 @@ const RegisterScreen = () => {
 		<FormContainer>
 			<h1>Sign Up</h1>
 
+			{/* Form for registering user */}
 			<Form onSubmit={submitHandler}>
+				{/* Name input field */}
 				<Form.Group controlId='name' className='my-3'>
 					<Form.Label>Name</Form.Label>
 					<Form.Control
@@ -70,6 +80,7 @@ const RegisterScreen = () => {
 					></Form.Control>
 				</Form.Group>
 
+				{/* Email input field */}
 				<Form.Group controlId='email' className='my-3'>
 					<Form.Label>Email</Form.Label>
 					<Form.Control
@@ -80,6 +91,7 @@ const RegisterScreen = () => {
 					></Form.Control>
 				</Form.Group>
 
+				{/* Password input field */}
 				<Form.Group controlId='password' className='my-3'>
 					<Form.Label>Password</Form.Label>
 					<Form.Control
@@ -90,6 +102,7 @@ const RegisterScreen = () => {
 					></Form.Control>
 				</Form.Group>
 
+				{/* Password confirmation input field */}
 				<Form.Group controlId='confirmPassword' className='my-3'>
 					<Form.Label>Confirm Password</Form.Label>
 					<Form.Control
@@ -100,6 +113,7 @@ const RegisterScreen = () => {
 					></Form.Control>
 				</Form.Group>
 
+				{/* Register button */}
 				<Button disabled={isLoading} type='submit' variant='primary' className='mt-2'>
 					Register
 				</Button>

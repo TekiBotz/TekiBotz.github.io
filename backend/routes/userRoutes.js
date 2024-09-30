@@ -1,3 +1,11 @@
+/**
+ * Project: AnimalRescue
+ * File: userRoutes.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-24
+ * Purpose: Routes for handling user-related API requests.
+ */
+
 import express from 'express';
 const router = express.Router();
 import { 

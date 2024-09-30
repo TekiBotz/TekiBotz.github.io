@@ -1,5 +1,9 @@
 /**
- * Dummy data used before connecting to MongoDB
+ * Project: AnimalRescue
+ * File: animals.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-17
+ * Purpose: Creates dummy animal data.
  */
 
 const animals = [

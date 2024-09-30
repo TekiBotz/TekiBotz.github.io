@@ -1,23 +1,32 @@
+/**
+ * Project: AnimalRescue
+ * File: Paginate.jsx
+ * Author: Jarrale Butts
+ * Created: 2024-09-27
+ * Purpose: Provides pagination for lists with multiple pages of data. 
+ *          It displays a range of page numbers and allows navigation between them. 
+ *          This file also details the specific pagination algorithm implemented and
+ *          how it corresponds to optimization, time complexity, and efficiency.
+ * 
+ * Algorithm: The pagination algorithm displays a maximum of 6 page
+ *            numbers at a time, dynamically calculating the 
+ *            start and end pages based on the current page. It allows 
+ *            users to navigate between pages using previous and next 
+ *            buttons, and highlights the current page. The link destinations 
+ *            vary depending on the user's role and whether a keyword is being searched.
+ * 
+ * Optimization, Time Complexity, and Efficiency:
+ *    The Pagination and SearchBar algorithms significantly improves optimization, time complexity, 
+ *    and efficiency compared to the native pagination without a search bar used in the original artifact. 
+ *    By filtering data through the search bar, the pagination algorithm reduces the number of records 
+ *    processed and pages rendered, improving load times and user experience. The dynamic calculation 
+ *    of page ranges and the ability to jump directly to specific pages further enhance the efficiency 
+ *    and responsiveness of the pagination.
+ */
+
 import { Pagination } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-/*
- * Paginate component to improve optimization, time complexity, and efficiency.
- * 
- * Improvements made possible by reducing data fetched per request, found in (animalController.js),
- * from all 10,000 documents at once, before pagination,
- * to 12 documents per page, after pagination.
- * 
- * Optimization result: GET request time reduced from 1266ms to 119ms,
- * and data size reduced from 4.8MB to 6.25KB.
- * 
- * Time Complexity: Each fetch operation reduced from O(n) -> O(1).
- * Where n represents all documents in the database and
- * 1 represents the number of documents per page.
- * 
- * Efficiency: Pagination improved memory usage, reduced server load, 
- * and created a better user experience due to faster response times.
- */
 const Paginate = ({ pages, page, isAdmin = false, keyword = '' }) => {
   // Range of pages to display in the pagination component
   const pageRange = 6;
@@ -38,7 +47,7 @@ const Paginate = ({ pages, page, isAdmin = false, keyword = '' }) => {
                 ? keyword
                   ? `/search/${keyword}/page/${page - 1}`  // Navigate to the previous page with search keyword
                   : `/page/${page - 1}`  // Navigate to the previous page without search keyword
-                : `/admin/productlist/${page - 1}`  // Admin view of the previous page
+                : `/admin/animallist/${page - 1}`  // Admin view of the previous page
             }
           />
         )}
@@ -53,7 +62,7 @@ const Paginate = ({ pages, page, isAdmin = false, keyword = '' }) => {
                 ? keyword
                   ? `/search/${keyword}/page/${startPage + x}`  // Navigate to specific page with search keyword
                   : `/page/${startPage + x}`  // Navigate to specific page without search keyword
-                : `/admin/productlist/${startPage + x}`  // Admin view of the specific page
+                : `/admin/animallist/${startPage + x}`  // Admin view of the specific page
             }
             active={startPage + x === page}  // Highlight current page
           >
@@ -70,7 +79,7 @@ const Paginate = ({ pages, page, isAdmin = false, keyword = '' }) => {
                 ? keyword
                   ? `/search/${keyword}/page/${page + 1}`  // Navigate to the next page with search keyword
                   : `/page/${page + 1}`  // Navigate to the next page without search keyword
-                : `/admin/productlist/${page + 1}`  // Admin view of the next page
+                : `/admin/animallist/${page + 1}`  // Admin view of the next page
             }
           />
         )}

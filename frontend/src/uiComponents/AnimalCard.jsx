@@ -1,3 +1,11 @@
+/**
+ * Project: AnimalRescue
+ * File: AnimalCard.jsx
+ * Author: Jarrale Butts
+ * Created: 2024-09-16
+ * Purpose: Displays a card for each animal with details and image.
+ */
+
 import React from 'react'
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -8,7 +16,7 @@ import { calculateAge } from '../utils/dateUtils';
 const AnimalCard = ({ animal }) => {
   const age = calculateAge(animal.date_of_birth);
 
-  // Images can be added for the different animals at a later date, this will dynamically assign stock images
+  // Images will dynamically assign stock images
   const imagePath = animal.animal_type === 'Dog' ? '/images/dogIcon.png' : '/images/catIcon.png';
 
   return (
@@ -25,8 +33,9 @@ const AnimalCard = ({ animal }) => {
                 <strong>{animal.name || 'Need A Name'}</strong>
             </Card.Title>
         </Link>
-        
       </Card.Body>
+
+      {/* List group showing breed, age, and sex */}
       <ListGroup className="list-group-flush">
         <ListGroup.Item className='shorten-text'>{animal.breed}</ListGroup.Item>
         <ListGroup.Item>{age.years} years {age.months} months old</ListGroup.Item>

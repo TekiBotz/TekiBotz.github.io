@@ -1,8 +1,13 @@
+/**
+ * Project: AnimalRescue
+ * File: users.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-23
+ * Purpose: Seed user data.
+ */
+
 import bcrypt from 'bcryptjs';
 
-/*
-Seed user data
-*/
 const users = [
 	{
 		name: 'Admin User',

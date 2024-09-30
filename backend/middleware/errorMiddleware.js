@@ -1,4 +1,13 @@
 /**
+ * Project: AnimalRescue
+ * File: middleware/errorMiddleware.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-24
+ * Purpose: Middleware for handling 404 errors for unmatched 
+ *          routes and handling general errors in the application.
+ */
+
+/**
  * Middleware to handle 404 errors for unmatched routes
  * 
  * @param {Object} req - The request object

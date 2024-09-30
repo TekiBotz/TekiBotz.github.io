@@ -1,70 +1,95 @@
-# Getting Started with Create React App
+# AnimalRescue - Getting Started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a Pet Rescue Shelter App built using React and bootstrapped with Create React App.
+
+## Project Overview
+
+The AnimalRescue app provides a platform for users to browse available pets and view detailed information about each one. The app is structured with a clean interface using React, React Router for routing, and React Bootstrap for layout and styling.
+
+### Key Features:
+
+- Dynamic pet listing and detail pages
+-	User login (Sign In) and authentication
+-	Admin dashboard for managing pets and users
+-	Paginated data for large lists of pets
+-	Age calculation for pets based on their birthdate
+-	Responsive and accessible design for optimal use on all devices
+-	Search and filter functionality for easy browsing
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### npm start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Runs the app by starting the backend server located in backend/server.js.
+Open http://localhost:3000 to view the app in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### npm run server
 
-### `npm test`
+Runs the backend server using nodemon for automatic restarts on code changes.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### npm run client
 
-### `npm run build`
+Starts the React frontend. It will run on http://localhost:3000.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### npm run dev
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Runs both the backend and the frontend concurrently for development.
+The backend will be accessible on http://localhost:5000 and the frontend on http://localhost:3000.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### npm run data:add
 
-### `npm run eject`
+Runs a data seeder script (backend/seeder.js) to populate the database with initial data.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### npm run data:delete
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Runs the data seeder script with the -d flag to delete all data from the database.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### npm run build
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Installs all necessary dependencies for both the backend and the frontend. Then builds the frontend for production by bundling the React app and placing the output in the frontend/build folder.
 
-## Learn More
+## Folder Structure
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+-	/public: Contains static assets such as the app’s HTML template and images.
+-	/src: The main source code of the app. This includes:
+-	/components: Reusable UI components like the Header, Footer, and Cards.
+-	/screens: Pages of the app (Home, Animal Details, Admin Dashboard, User List).
+-	/slices: Redux slices for state management (user, animal data, etc.).
+-	/utils: Utility functions like calculateAge for dynamic age calculations.
+-	/assets: Image assets (e.g., logos, pet images).
+-	/uiComponents: Custom UI elements such as AlertMessage, LoadingSpinner, and Paginate.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Styling and Framework
 
-### Code Splitting
+The app uses React Bootstrap for layout and design, making it responsive and visually consistent across devices. Styling is done primarily through Bootstrap classes with minimal custom CSS for ease of maintenance.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Backend and API
 
-### Analyzing the Bundle Size
+The app integrates with a backend API for managing pet and user data. CRUD operations are performed for users, pets, and other relevant resources. Authentication is handled using JSON Web Tokens (JWT), and state management is achieved through Redux Toolkit.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Learn More
 
-### Making a Progressive Web App
+For more information on how Create React App works, visit the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+To learn more about React, check out the [React documentation](https://reactjs.org/).
 
-### Advanced Configuration
+## Advanced Topics
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- [Code Splitting](https://facebook.github.io/create-react-app/docs/code-splitting) for better performance.
+- [Analyzing the Bundle Size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size) to optimize load times.
+- [Making a Progressive Web App](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app) for offline capabilities.
+- [Advanced Configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration) for customizing your React build.
 
-### Deployment
+## Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+To deploy your app, refer to the [deployment guide](https://facebook.github.io/create-react-app/docs/deployment) in the React documentation.
 
-### `npm run build` fails to minify
+### Troubleshooting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For build issues such as minification errors, refer to [troubleshooting](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify).
+
+---
+
+This README provides an overview of the AnimalRescue app and essential details to get started with its development and deployment!

@@ -1,9 +1,14 @@
+/**
+ * Project: AnimalRescue
+ * File: db.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-23
+ * Purpose: Asynchronous function to connect to MongoDB Atlas 
+ *          using the URI stored in environment variables.
+ */
+
 import mongoose from 'mongoose';
 
-/**
- * Asynchronous function to connect to MongoDB Atlas using the URI stored 
- * in environment variables
- */
 const connectDB = async () => {
 	try {
 		const conn = await mongoose.connect(process.env.MONGO_URI);

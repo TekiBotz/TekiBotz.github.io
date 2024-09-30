@@ -1,3 +1,11 @@
+/**
+ * Project: AnimalRescue
+ * File: frontend/index.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-16
+ * Purpose: Entry point of application. Sets up routing and renders for the app and root component.
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom' // Enable routes
@@ -46,7 +54,7 @@ const router = createBrowserRouter (
   )
 )
 
-// Render the React application
+// Render the app
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -56,5 +64,5 @@ root.render(
   </React.StrictMode>
 );
 
-// Measure and log performance metrics
-reportWebVitals();
+// Performance measurement (optional)
+reportWebVitals();  // Logs performance metrics

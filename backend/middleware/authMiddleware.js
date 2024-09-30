@@ -1,3 +1,12 @@
+/**
+ * Project: AnimalRescue
+ * File: middleware/authMiddleware.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-25
+ * Purpose: Middleware to protect routes by verifying JWT tokens 
+ *          and checking if a user has admin privileges.
+ */
+
 import jwt from "jsonwebtoken";
 import asyncHandler from './asyncHandler.js';
 import User from '../models/userModel.js';

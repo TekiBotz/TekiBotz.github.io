@@ -1,3 +1,12 @@
+/**
+ * Project: AnimalRescue
+ * File: store.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-25
+ * Purpose: Configures and creates the Redux store for managing application state, 
+ *          including API and authentication states.
+ */
+
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./slices/apiSlice";
 import authSliceReducer from './slices/authSlice';
