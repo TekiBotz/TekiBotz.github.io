@@ -46,6 +46,9 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 		getUsers: builder.query({
 			query: () => ({
 				url: `${USERS_URL}`,
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')).token : ''}`,
+				},
 			}),
 			providesTags: ['Users'],  // Allows you to see the deleted user without reloading the page
 			keepUnusedDataFor: 5,
