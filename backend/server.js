@@ -40,22 +40,28 @@ app.use(cookieParser());
 app.use('/api/animals', animalRoutes);  // Routes starting with /api/animals are handled by animalRoutes
 app.use('/api/users', userRoutes);  // Routes starting with /api/users are handled by userRoutes
 
-if (process.env.NODE_ENV === 'production') {
-	const __dirname = path.resolve();
-	// Set static folder to serve frontend files
-	app.use(express.static(path.join(__dirname, '/frontend/build')));
+// if (process.env.NODE_ENV === 'production') {
+// 	const __dirname = path.resolve();
+// 	// Set static folder to serve frontend files
+// 	app.use(express.static(path.join(__dirname, '/frontend/build')));
   
-	// Any route thats that does not match the API will redirect to index.html
-	app.get('*', (req, res) =>
-	  res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-	);
-  } else {
-	const __dirname = path.resolve();
-	app.get('/', (req, res) => {
-		// Message when accessing the root in development mode
-	  res.send('API is running....');
-	});
-}
+// 	// Any route thats that does not match the API will redirect to index.html
+// 	app.get('*', (req, res) =>
+// 	  res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+// 	);
+//   } else {
+// 	const __dirname = path.resolve();
+// 	app.get('/', (req, res) => {
+// 		// Message when accessing the root in development mode
+// 	  res.send('API is running....');
+// 	});
+// }
+
+// API base route message
+app.get('/', (req, res) => {
+	// Message when accessing the root in development mode
+	res.send('API is running....');
+});
 
 // Middleware for handling 404 errors
 app.use(notFound);
