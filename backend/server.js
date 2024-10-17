@@ -11,6 +11,7 @@ import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -22,6 +23,11 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 const port = process.env.PORT || 4000;
 
+// Enable CORS for all routes (specify for the frontend)
+app.use(cors({
+  origin: 'https://tekibotz.github.io',
+}));
+
 connectDB();
 
 // Initialize the Express application
@@ -29,11 +35,7 @@ const app = express();
 
 // Middleware to parse JSON bodies
 app.use(express.json());
-
-// Middleware to parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
-
-// Middleware to parse cookies
 app.use(cookieParser());
 
 // Routes for animals and users
