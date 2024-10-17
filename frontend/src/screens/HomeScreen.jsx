@@ -16,10 +16,6 @@ import AlertMessage from '../uiComponents/AlertMessage';
 import Paginate from '../uiComponents/Paginate';
 import { useGetAnimalsQuery } from '../slices/animalsApiSlice';
 
-// Function to normalize breed names for searching
-const normalizeBreed = (breed) => {
-  return breed.toLowerCase().replace(/\s+/g, ' ').trim();
-};
 
 const HomeScreen = () => {
   // Extracts pageNumber and keyword from the URL
@@ -27,53 +23,40 @@ const HomeScreen = () => {
   // Fetches animals based on the keyword and pageNumber
   const { data, isLoading, error } = useGetAnimalsQuery({ keyword, pageNumber });
 
-  // Filtered animals based on the normalized keyword
-  const filteredAnimals = keyword
-    ? data.animals.filter(animal => 
-        normalizeBreed(animal.breed).includes(normalizeBreed(keyword))
-      )
-    : data.animals;
-
   return (
     <>
-      {/* Back arrow allows users to navigate to the home screen */}
+      {/* Back arrow allows users to naviate to home screen */}
       {keyword && (
         <Link to='/'>
           <i className="bi bi-arrow-left-circle-fill text-dark fs-1"></i>
         </Link>
       )}
       {/* Conditional rendering */}
-      {isLoading ? (
-        <LoadingSpinner />
+      { isLoading ? (
+          <LoadingSpinner/>
       ) : error ? (
-        <AlertMessage variant='danger'>
+        <AlertMessage varient='danger'>
           {error?.data?.message || error.error}
         </AlertMessage>
       ) : (
-        <>
-          <div className='my-2'>
-            <h2>Rescue A Pet</h2>
-          </div>
-          <Row>
-            {filteredAnimals.length === 0 ? (
-              <AlertMessage variant='info'>
-                No animals found with that breed. Please check your spelling or try a different search term.
-              </AlertMessage>
-            ) : (
-              filteredAnimals.map((animal) => (
+      <>
+        <div className='my-2'>
+        <h2>Rescue A Pet</h2>
+        </div>
+        <Row>
+            {data.animals.map((animal) => (
                 <Col key={animal._id} sm={12} md={6} lg={4} xl={3}>
-                  {/* Display each animal using the AnimalCard component */}
-                  <AnimalCard animal={animal} />
+                    {/* Display each animal using the AnimalCard component */}
+                    <AnimalCard animal={animal} />
                 </Col>
-              ))
-            )}
-          </Row>
-          {/* Paginate component */}
-          <Paginate pages={data.pages} page={data.page} keyword={keyword ? keyword : ''} />
-        </>
-      )}
+            ))}
+        </Row>
+        {/* Paginate component */}
+        <Paginate pages={data.pages} page={data.page} keyword={keyword ? keyword : ''} />
+      </>) 
+      }
     </>
   );
 };
 
-export default HomeScreen;
+export default HomeScreen
