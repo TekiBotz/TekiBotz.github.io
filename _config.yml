@@ -1,5 +1,5 @@
 # Site settings
-title: My ePortfolio
+title: TekiBotz ePortfolio
 description: This is my personal portfolio site.
 url: "https://tekibotz.github.io"
 
@@ -7,7 +7,7 @@ url: "https://tekibotz.github.io"
 markdown: kramdown
 
 # Theme settings (Jekyll theme)
-theme: jekyll-theme-minimal
+theme: jekyll-theme-hacker
 
 # Exclude folders/files from the build
 exclude:
