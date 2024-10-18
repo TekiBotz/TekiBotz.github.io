@@ -1,3 +1,12 @@
+/**
+ * Project: AnimalRescue
+ * File: UserEditScreen.jsx
+ * Author: Jarrale Butts
+ * Created: 2024-09-26
+ * Purpose: Form for editing user details, including name, email, and admin status.
+ *          Handles the fetching of user details, updating user information, and navigating back to the user list.
+ */
+
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, Button } from 'react-bootstrap';
@@ -52,8 +61,11 @@ const UserEditScreen = () => {
       <Link to='/admin/userlist' className='btn btn-light my-3'>
         Go Back
       </Link>
+
       <FormContainer>
         <h1>Edit User</h1>
+
+        {/* Show loading spinner while updating */}
         {loadingUpdate && <LoadingSpinner />}
         {/* Conditional rendering */}
         {isLoading ? (
@@ -63,8 +75,11 @@ const UserEditScreen = () => {
             {error?.data?.message || error.error}
           </AlertMessage>
         ) : (
+
+          // Admin form for editing a user
           <Form onSubmit={submitHandler}>
             <Form.Group className='my-2' controlId='name'>
+              {/* Name input field */}
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type='name'
@@ -74,6 +89,7 @@ const UserEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
+            {/* Email input field */}
             <Form.Group className='my-2' controlId='email'>
               <Form.Label>Email Address</Form.Label>
               <Form.Control
@@ -84,6 +100,7 @@ const UserEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
+            {/* isAdmin check box */}
             <Form.Group className='my-2' controlId='isadmin'>
               <Form.Check
                 type='checkbox'
@@ -93,6 +110,7 @@ const UserEditScreen = () => {
               ></Form.Check>
             </Form.Group>
 
+            {/* Update button */}
             <Button type='submit' variant='primary'>
               Update
             </Button>

@@ -1,11 +1,19 @@
-import asyncHandler from '../middleware/asyncHandler.js';
-import User from '../models/userModel.js';
-import generateToken from '../utils/generateToken.js';
-
 /**
+ * Project: AnimalRescue
+ * File: userController.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-24
+ * Purpose: Controller functions for handling user-related API 
+ * 					requests, including authentication, registration, 
+ * 					profile management, and user management for admin users.
+ * 
  * asyncHandler wraps each route handler to manage errors
  * and avoid repetitive try...catch blocks
  */
+
+import asyncHandler from '../middleware/asyncHandler.js';
+import User from '../models/userModel.js';
+import generateToken from '../utils/generateToken.js';
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login

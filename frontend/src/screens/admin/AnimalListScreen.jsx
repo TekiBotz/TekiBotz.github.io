@@ -1,3 +1,11 @@
+/**
+ * Project: AnimalRescue
+ * File: AnimalListScreen.jsx
+ * Author: Jarrale Butts
+ * Created: 2024-09-26
+ * Purpose: Displays a list of animals in the shelter with pagination.
+ */
+
 import React from 'react';
 import { Table, Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
@@ -61,6 +69,7 @@ const AnimalListScreen = () => {
               ))}
             </tbody>
           </Table>
+          {/* Paginate component */}
           <Paginate pages={data.pages} page={data.page} isAdmin={true}/>
         </>
         

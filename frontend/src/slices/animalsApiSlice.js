@@ -1,3 +1,12 @@
+/**
+ * Project: AnimalRescue
+ * File: animalsApiSlice.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-25
+ * Purpose: Defines API endpoints for fetching animal data and 
+ *          exports hooks for use in React components.
+ */
+
 import { ANIMALS_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
 

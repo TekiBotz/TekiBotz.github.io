@@ -1,9 +1,17 @@
+/**
+ * Project: AnimalRescue
+ * File: userModel.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-24
+ * Purpose: Mongoose schema for user accounts, including necessary 
+ * 					attributes and methods for password hashing and comparison, 
+ * 					enabling secure authentication.
+ */
+
 import mongoose from "mongoose";
 import bcrypt from 'bcryptjs';
 
-/*
-Necessary attributes for a user to be created
-*/
+// Necessary attributes for a user to be created
 const userSchema = new mongoose.Schema ({
 	name: {
 		type: String,

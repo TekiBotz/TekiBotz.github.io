@@ -1,3 +1,11 @@
+/**
+ * Project: AnimalRescue
+ * File: UserListScreen.jsx
+ * Author: Jarrale Butts
+ * Created: 2024-09-26
+ * Purpose: Displays a list of users with the ability to edit or delete users. 
+ */
+
 import React from 'react';
 import { Button, Table } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -29,10 +37,12 @@ const UserListScreen = () => {
   return (
     <>
       <h1>Users</h1>
+      {/* Show spinner during delete operation */}
       {loadingDelete && <LoadingSpinner />}
+
       {/* Conditional rendering */}
       {isLoading ? (
-        <LoadingSpinner /> 
+        <LoadingSpinner />  // Show spinner while loading users
       ) : error ? (
         <AlertMessage varient='danger'>
           {error?.data?.message || error.error}
@@ -58,9 +68,9 @@ const UserListScreen = () => {
                   </td>
                   <td>
                     {user.isAdmin ? (
-                      <FaCheck style={{ color: 'green' }} />  // Show check icon if admin
+                      <FaCheck style={{ color: 'green' }} />  // Green check if admin
                     ) : (
-                      <FaTimes style={{ color: 'red' }} />  // Show cross icon if not admin
+                      <FaTimes style={{ color: 'red' }} />  // Red cross if not admin
                     )}
                   </td>
                   <td>
@@ -72,7 +82,7 @@ const UserListScreen = () => {
                     <Button variant='danger' className='btn-sm' 
                       onClick={() => deleteHandler(user._id)}
                     >
-                      <FaTrash style={{ color: 'white' }} />
+                      <FaTrash style={{ color: 'white' }} />  {/* Delete button */}
                     </Button>
                   </td>
                 </tr>

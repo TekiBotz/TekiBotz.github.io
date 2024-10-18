@@ -1,3 +1,11 @@
+/**
+ * Project: AnimalRescue
+ * File: Header.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-16
+ * Purpose: Displays the header of the application.
+ */
+
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
@@ -41,11 +49,13 @@ const Header = () => {
 						</Navbar.Brand>
 					</LinkContainer>
 					
-					<Navbar.Toggle aria-controls='basic-navbar-nav' />  {/* Toggle button for responsive menu */}
+					{/* Toggle button for responsive menu */}
+					<Navbar.Toggle aria-controls='basic-navbar-nav' /> 
           <Navbar.Collapse id='basic-navbar-nav'>
-						<Nav className="ms-auto">  {/* Navigation items */}
+						<Nav className="ms-auto">
 							<SearchBar />  {/* SearchBar component */}
 
+							{/* User links: Profile and Logout */}
 							{ userInfo ? (
 								<NavDropdown title={userInfo.name} id='username'>
 									<LinkContainer to='/profile'>
@@ -56,6 +66,7 @@ const Header = () => {
 									</NavDropdown.Item>
 								</NavDropdown>
 							) : (
+								// Link to login page if not signed in
 								<LinkContainer to='/login'>
 									<Nav.Link href='/login'>
 										<FaUser /> Sign In
@@ -63,6 +74,7 @@ const Header = () => {
 								</LinkContainer>
 							)}
 
+							{/* Admin links */}
 							{userInfo && userInfo.isAdmin && (
 								<NavDropdown title='Admin' id='adminmenu'>
 									<LinkContainer to='/admin/animallist'>

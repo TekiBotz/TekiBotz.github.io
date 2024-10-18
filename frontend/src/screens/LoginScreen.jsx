@@ -1,3 +1,11 @@
+/**
+ * Project: AnimalRescue
+ * File: LoginScreen.jsx
+ * Author: Jarrale Butts
+ * Created: 2024-09-19
+ * Purpose: Login screen where users can sign in using their email and password.
+ */
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
@@ -29,7 +37,7 @@ const LoginScreen = () => {
 	const searchParams = new URLSearchParams(search);
 	const redirect = searchParams.get('redirect') || '/';
 
-	// If the user is already logged in, redirect to intended page
+	// Redirect the user if they are already logged in
 	useEffect(() => {
 		if (userInfo) {
 			navigate(redirect);
@@ -51,7 +59,9 @@ const LoginScreen = () => {
 		<FormContainer>
 			<h1>Sign In</h1>
 
+			{/* Form for login */}
 			<Form onSubmit={submitHandler}>
+				{/* Email input field */}
 				<Form.Group controlId='email' className='my-3'>
 					<Form.Label>Email</Form.Label>
 					<Form.Control
@@ -62,6 +72,7 @@ const LoginScreen = () => {
 					></Form.Control>
 				</Form.Group>
 
+				{/* Password input field */}
 				<Form.Group controlId='password' className='my-3'>
 					<Form.Label>Password</Form.Label>
 					<Form.Control
@@ -72,6 +83,7 @@ const LoginScreen = () => {
 					></Form.Control>
 				</Form.Group>
 
+				{/* Signin button */}
 				<Button disabled={isLoading} type='submit' variant='primary' className='mt-2'>
 					Sign In
 				</Button>
@@ -82,6 +94,7 @@ const LoginScreen = () => {
 			<Row className='py-3'>
 				<Col>
 					New User?{' '}
+					{/* Register button */}
 					<Link to={ redirect ? `/register?redirect=${redirect}` : '/register' }>
 						Register
 					</Link>

@@ -1,3 +1,12 @@
+/**
+ * Project: AnimalRescue
+ * File: seeder.js
+ * Author: Jarrale Butts
+ * Created: 2024-09-23
+ * Purpose: Database seeder, allowing the insertion and deletion 
+ *          of dummy user data for development and testing purposes.
+ */
+
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import colors from 'colors';
@@ -12,11 +21,13 @@ connectDB();
 // Insert dummy users into the database
 const addData = async () => {
 	try {
+		// Remove existing users from the database
 		await User.deleteMany();
 
+		// Insert the dummy users into the database
 		await User.insertMany(users);
 
-		console.log('Users sucessfully added to database!'.green.inverse);  // .green.inverse just adds readability to the colsole log -> npm i colors
+		console.log('Users sucessfully added to database!'.green.inverse);  // .green.inverse adds readability to the colsole log -> npm i colors
 		process.exit(0);
 	} catch (error) {
 		console.error(`${error}`.red.inverse);
@@ -27,9 +38,10 @@ const addData = async () => {
 // Delete dummy users from the database
 const deleteData = async () => {
 	try {
+		// Remove existing users from the database
 		await User.deleteMany();
 
-		console.log('Users sucessfully deleted from database!'.red.inverse);  // .red.inverse just adds readability to the colsole log
+		console.log('Users sucessfully deleted from database!'.red.inverse);  // .red.inverse adds readability to the colsole log
 		process.exit(0);
 	} catch (error) {
 		console.error(`${error}`.red.inverse);
