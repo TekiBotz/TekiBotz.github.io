@@ -19,7 +19,7 @@ const AnimalCarousel = () => {
             <Image src={animal.image} alt={animal.name} fluid />
             <Carousel.Caption className='carousel-caption'>
               <h2 className='text-white text-right'>
-                {animal.name} (${animal.color})
+                {animal.name} ({animal.color})
               </h2>
             </Carousel.Caption>
           </Link>
