@@ -11,7 +11,7 @@
     "data:delete": "node seeder.js -d"
   },
   "author": "Jarrale Butts",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",

@@ -10,33 +10,26 @@ import jwt from 'jsonwebtoken';
 import asyncHandler from './asyncHandler.js';
 import User from '../models/userModel.js';
 
-// Middleware to protect routes by verifying the JWT token
+// Middleware to protect routes by verifying the JWT from the httpOnly cookie
+// that generateToken sets at login. cookie-parser (server.js) populates req.cookies.
 const protect = asyncHandler(async (req, res, next) => {
-	let token;
+	const token = req.cookies.jwt;
 
-	// Check for the token in the Authorization header
-	if (
-		req.headers.authorization &&
-		req.headers.authorization.startsWith('Bearer')
-	) {
-		try {
-			// Extract the token from the Authorization header
-			token = req.headers.authorization.split(' ')[1];
-
-			// Verify the token
-			const decoded = jwt.verify(token, process.env.JWT_SECRETE);
-
-			// Attach user to the request
-			req.user = await User.findById(decoded.userId).select('-password');
-			next();
-		} catch (error) {
-			console.error(error);
-			res.status(401);
-			throw new Error('Not authorized, token failed');
-		}
-	} else {
+	if (!token) {
 		res.status(401);
 		throw new Error('Not authorized, no token');
+	}
+
+	try {
+		const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+		// Attach user to the request
+		req.user = await User.findById(decoded.userId).select('-password');
+		next();
+	} catch (error) {
+		console.error(error);
+		res.status(401);
+		throw new Error('Not authorized, token failed');
 	}
 });
 

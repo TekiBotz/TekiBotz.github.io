@@ -1,95 +1,208 @@
-# AnimalRescue - Getting Started
+# Animal Rescue (MERN)
 
-This project is a Pet Rescue Shelter App built using React and bootstrapped with Create React App.
+A shelter-adoption web app built on the Austin Animal Center (AAC) outcomes dataset. Visitors browse
+adoptable animals, search by breed, page through results, and register an account. Admins get a
+user-management area and a read-only shelter table. A separate Jupyter notebook trains a scikit-learn
+decision tree on the same data to predict animal outcomes.
 
-## Project Overview
+The repo was renamed from `TekiBotz.github.io` — the frontend used to deploy to GitHub Pages and the
+API to Render. Those deploy-specific settings are now environment variables that default to localhost,
+so a fresh clone runs without editing source (see [Running locally](#running-locally)).
 
-The AnimalRescue app provides a platform for users to browse available pets and view detailed information about each one. The app is structured with a clean interface using React, React Router for routing, and React Bootstrap for layout and styling.
+## Contents
 
-### Key Features:
+- [Tech stack](#tech-stack)
+- [Repository layout](#repository-layout)
+- [Features](#features)
+- [Running locally](#running-locally)
+- [Seed data and animal data](#seed-data-and-animal-data)
+- [Data-mining component](#data-mining-component)
+- [Known issues](#known-issues)
+- [License](#license)
 
-- Dynamic pet listing and detail pages
--	User login (Sign In) and authentication
--	Admin dashboard for managing pets and users
--	Paginated data for large lists of pets
--	Age calculation for pets based on their birthdate
--	Responsive and accessible design for optimal use on all devices
--	Search and filter functionality for easy browsing
+## Tech stack
 
-## Available Scripts
+**API** — Node (ES modules, Node 18+), Express 4.19, Mongoose 8.5, MongoDB Atlas. Auth is a signed
+JWT (`jsonwebtoken` 9) stored in an httpOnly cookie; passwords hashed with `bcryptjs`. `cors` and
+`cookie-parser` handle the browser-facing pieces.
 
-In the project directory, you can run:
+**Frontend** — React 18.3 on Create React App (`react-scripts` 5). Routing with React Router 6.25
+(`createBrowserRouter`). State and data fetching with Redux Toolkit 2.2 and RTK Query. UI is React
+Bootstrap 2.10 / Bootstrap 5.3, with `react-toastify` for notifications.
 
-### npm start
+**Data mining** — Python notebook using pandas, pymongo, scikit-learn (`DecisionTreeClassifier`,
+`LabelEncoder`), and matplotlib. No `requirements.txt`; versions aren't pinned.
 
-Runs the app by starting the backend server located in backend/server.js.
-Open http://localhost:3000 to view the app in your browser.
+## Repository layout
 
-### npm run server
+```
+backend/
+  server.js              Express app: CORS, cookie parsing, route mounting, error handlers
+  config/db.js           Mongoose connection to MONGO_URI
+  controllers/
+    animalController.js  list (paginated, breed keyword) + fetch by id
+    userController.js    register, login, logout, profile, admin user CRUD
+  models/
+    animalModel.js       AAC outcomes schema
+    userModel.js         bcrypt hash on save, matchPassword helper
+  routes/                animalRoutes (GET only), userRoutes
+  middleware/
+    authMiddleware.js    protect (reads the jwt cookie), admin
+    errorMiddleware.js   notFound + errorHandler
+    asyncHandler.js
+  utils/generateToken.js signs the JWT, sets the httpOnly cookie
+  data/users.js          seed users
+  data/animals.js        legacy dummy data, unused (older shape, not wired to anything)
+  seeder.js              loads / clears seed users
 
-Runs the backend server using nodemon for automatic restarts on code changes.
+frontend/src/
+  index.js               route table + guards
+  App.js                 layout shell (header, footer, toast container)
+  store.js               Redux store
+  constants.js           API base URL from REACT_APP_API_URL
+  slices/
+    apiSlice.js          RTK Query base query (sends the auth cookie)
+    animalsApiSlice.js   getAnimals, getAnimalDetails
+    usersApiSlice.js     auth + admin user endpoints
+    authSlice.js         userInfo persisted to localStorage
+  screens/               Home, AnimalDetail, Login, Register, Profile,
+                         admin/{AnimalList, UserList, UserEdit}
+  uiComponents/          Header, Footer, AnimalCard, SearchBar, Paginate, AlertMessage,
+                         LoadingSpinner, FormContainer, PrivateRoute, AdminRoute
+  utils/dateUtils.js     calculateAge(date_of_birth) -> { years, months }
 
-### npm run client
+python_models/           decision_tree_classifier.pkl, label_encoder.pkl, preprocessed_animals.csv
+jupyter_notebook/        Butts_Jarrale_AnimalRescue_Data_Mining.ipynb
+```
 
-Starts the React frontend. It will run on http://localhost:3000.
+## Features
 
-### npm run dev
+**Browse.** `HomeScreen` renders a paginated grid of animal cards, 12 per page (`animalController.js`).
+Each card shows the name (or "Need A Name"), breed, an age computed from `date_of_birth`, and sex. A
+stock dog or cat icon stands in for a photo — the dataset has no images.
 
-Runs both the backend and the frontend concurrently for development.
-The backend will be accessible on http://localhost:5000 and the frontend on http://localhost:3000.
+**Search.** The search box routes to `/search/:keyword` and the API filters `breed` with a
+case-insensitive regex. Breed only; there's no filter by type, age, colour, or outcome.
 
-### npm run data:add
+**Animal detail.** `/animal/:id` fetches one record and shows the same card, larger.
 
-Runs a data seeder script (backend/seeder.js) to populate the database with initial data.
+**Accounts.** Register, log in, log out, edit profile. Login and register sign a JWT and set it as an
+httpOnly `jwt` cookie that expires in a day. The browser also keeps a non-sensitive `userInfo` blob
+(`_id`, `name`, `email`, `isAdmin`) in `localStorage` for rendering and the client-side guards.
 
-### npm run data:delete
+**Route guards.** `PrivateRoute` gates `/profile` on being logged in; `AdminRoute` gates `/admin/*`
+on `isAdmin`. These are client-side only — the API enforces its own checks with the `protect` and
+`admin` middleware.
 
-Runs the data seeder script with the -d flag to delete all data from the database.
+**Admin area.** `/admin/userlist` lists users with delete and an edit screen that toggles `isAdmin`
+(the seeded admin can't be deleted). `/admin/animallist` is a paginated table of every animal, and
+it's read-only — there are no create/update/delete routes for animals.
 
-### npm run build
+## Running locally
 
-Installs all necessary dependencies for both the backend and the frontend. Then builds the frontend for production by bundling the React app and placing the output in the frontend/build folder.
+Prereqs: Node 18+, a MongoDB connection string (Atlas or local), and Python 3 with Jupyter if you
+want to run the notebook.
 
-## Folder Structure
+**1. Backend env.** Copy `.env.example` to `.env` at the repo root:
 
--	/public: Contains static assets such as the app’s HTML template and images.
--	/src: The main source code of the app. This includes:
--	/components: Reusable UI components like the Header, Footer, and Cards.
--	/screens: Pages of the app (Home, Animal Details, Admin Dashboard, User List).
--	/slices: Redux slices for state management (user, animal data, etc.).
--	/utils: Utility functions like calculateAge for dynamic age calculations.
--	/assets: Image assets (e.g., logos, pet images).
--	/uiComponents: Custom UI elements such as AlertMessage, LoadingSpinner, and Paginate.
+```
+PORT=4000
+NODE_ENV=development
+MONGO_URI=<your connection string>
+JWT_SECRET=<any random string>
+CLIENT_URL=http://localhost:3000
+```
 
-## Styling and Framework
+`NODE_ENV=development` matters: `generateToken` only drops the `Secure` flag on the cookie in
+development, so over plain `http://localhost` the cookie won't stick without it.
 
-The app uses React Bootstrap for layout and design, making it responsive and visually consistent across devices. Styling is done primarily through Bootstrap classes with minimal custom CSS for ease of maintenance.
+**2. Frontend env.** The default (`http://localhost:4000`) already points at the local API. To
+override it, copy `frontend/.env.example` to `frontend/.env` and set `REACT_APP_API_URL`.
 
-Backend and API
+**3. Install.** Three package trees, installed separately:
 
-The app integrates with a backend API for managing pet and user data. CRUD operations are performed for users, pets, and other relevant resources. Authentication is handled using JSON Web Tokens (JWT), and state management is achieved through Redux Toolkit.
+```
+npm install
+npm install --prefix backend
+npm install --prefix frontend
+```
 
-### Learn More
+**4. Run.**
 
-For more information on how Create React App works, visit the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+npm run dev
+```
 
-To learn more about React, check out the [React documentation](https://reactjs.org/).
+That starts the API on `:4000` and the CRA dev server on `:3000` together. To run them apart, use
+`npm run server` (API, nodemon) and `npm run client` (frontend).
 
-## Advanced Topics
+### Scripts (repo root)
 
-- [Code Splitting](https://facebook.github.io/create-react-app/docs/code-splitting) for better performance.
-- [Analyzing the Bundle Size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size) to optimize load times.
-- [Making a Progressive Web App](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app) for offline capabilities.
-- [Advanced Configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration) for customizing your React build.
+| Command | Does |
+|---------|------|
+| `npm start` | API only, `node backend/server.js`. Root path returns `API is running....` |
+| `npm run server` | API under `nodemon` |
+| `npm run client` | CRA dev server on `http://localhost:3000` |
+| `npm run dev` | API + frontend via `concurrently` |
+| `npm run data:add` | Seed the three test users |
+| `npm run data:delete` | Delete all users |
+| `npm run build` | Install root + frontend deps, build the frontend to `frontend/build` |
 
-## Deployment
+## Seed data and animal data
 
-To deploy your app, refer to the [deployment guide](https://facebook.github.io/create-react-app/docs/deployment) in the React documentation.
+`seeder.js` handles **users only**. `npm run data:add` inserts three accounts (password `123456` for
+all three):
 
-### Troubleshooting
+| Email | Role |
+|-------|------|
+| `admin@email.com` | admin |
+| `john@email.com` | user |
+| `jane@email.com` | user |
 
-For build issues such as minification errors, refer to [troubleshooting](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify).
+Animal data is not seeded. `animalModel.js` mirrors the AAC outcomes dataset — `animal_id`,
+`animal_type`, `breed`, `color`, `date_of_birth`, `outcome_type`, `outcome_subtype`,
+`sex_upon_outcome`, `location_lat` / `location_long`, `age_upon_outcome_in_weeks`, and so on — and the
+browse pages stay empty until an `animals` collection exists in that shape. Load it yourself:
+`mongoimport` the AAC "Animal Center Outcomes" export, or import
+`python_models/preprocessed_animals.csv` (~10k rows, already cleaned and label-encoded).
+`backend/data/animals.js` is leftover dummy data in an older shape and isn't used.
 
----
+## Data-mining component
 
-This README provides an overview of the AnimalRescue app and essential details to get started with its development and deployment!
+`jupyter_notebook/Butts_Jarrale_AnimalRescue_Data_Mining.ipynb` connects to the same Atlas database
+with pymongo, drops rows missing `outcome_type`, label-encodes `breed` / `sex_upon_outcome` /
+`outcome_type`, derives `days_since_birth` from `date_of_birth`, and trains a `DecisionTreeClassifier`
+on a 75/25 split to predict `outcome_type`.
+
+Results recorded in the notebook: about 54% accuracy. It does reasonably on `Adoption` (the largest
+class) and gets zero correct predictions on rare classes like `Died` and `Rto-Adopt`. The notebook
+names class imbalance as the main thing to address.
+
+`python_models/` holds the trained artifacts:
+
+| File | What it is |
+|------|-----------|
+| `decision_tree_classifier.pkl` | the fitted tree (~800 KB) |
+| `label_encoder.pkl` | the fitted `LabelEncoder` |
+| `preprocessed_animals.csv` | ~10k rows: original columns plus the encoded ones and a numeric `age` |
+
+The Node app doesn't load any of this. The notebook and pickles stand on their own.
+
+## Known issues
+
+- **Admin redirect path.** `AdminRoute` redirects rejected users to `login` (relative), which
+  resolves to `/admin/login` from an admin URL and matches no route. `PrivateRoute` uses `/login`
+  correctly; `AdminRoute` should too.
+- **`updateUser` response.** `userController.updateUser` builds its JSON response from `updateUser`
+  (the imported function) instead of `updatedUser` (the saved document), so a successful admin user
+  edit returns `undefined` fields. The write itself succeeds.
+- **Cross-domain cookies.** The auth cookie is `sameSite: 'strict'`. Fine for local dev, where the
+  frontend and API are both on `localhost`, but if they're deployed to different domains the browser
+  won't send it — that case needs `sameSite: 'none'` with `secure: true`.
+- **Two moderate `npm audit` advisories.** Both are `qs` denial-of-service advisories pulled in
+  through Express 4's dependency tree. No patched Express 4 release clears them; fixing them means
+  migrating the API to Express 5.
+
+## License
+
+MIT — see [LICENSE](LICENSE).

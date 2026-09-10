@@ -22,9 +22,11 @@ dotenv.config();
 // Initialize the Express application
 const app = express();
 
-// Enable CORS for all routes (specify for the frontend)
+// Allow the frontend dev server (or CLIENT_URL in other environments) to call the
+// API and send the auth cookie. credentials:true is required for cookie-based auth.
 app.use(cors({
-	origin: 'https://tekibotz.github.io',
+	origin: process.env.CLIENT_URL || 'http://localhost:3000',
+	credentials: true,
 }));
 
 const port = process.env.PORT || 4000;

@@ -8,8 +8,9 @@ node_modules
 # testing
 /coverage
 
-# production
+# production build output (root pattern misses nested dirs, so list it explicitly)
 /build
+frontend/build/
 
 # misc
 .DS_Store
